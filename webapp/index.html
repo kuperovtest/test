@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <title>Маркет NFT</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://telegram.org" rel="dns-prefetch" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body.tc-open .top-header,
+        body.tc-open .bottom-nav {
+            display: none !important;
+        }
+
+        .tc-page {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh;
+            background: #111;
+            overflow-y: auto;
+        }
+
+        .tc-back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.12);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            margin: 16px 0 12px 16px;
+            flex-shrink: 0;
+        }
+
+        .tc-card-img {
+            display: block;
+            width: calc(100% - 32px);
+            height: auto;
+            margin: 0 auto 16px;
+            border-radius: 20px;
+        }
+
+        .tc-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 16px 100px;
+        }
+
+        .tc-step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .tc-step-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tc-step-icon-blue   { background: rgba(0,136,204,0.18); color: #29b6f6; }
+        .tc-step-icon-purple { background: rgba(168,85,247,0.18); color: #a855f7; }
+        .tc-step-icon-green  { background: rgba(34,197,94,0.18);  color: #22c55e; }
+
+        .tc-step-title {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .tc-step-desc {
+            color: rgba(255,255,255,0.45);
+            font-size: 13px;
+        }
+
+        .tc-step-link { color: #29b6f6; }
+
+        .tc-connect-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 18px 24px;
+            padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+            background: #fff;
+            color: #111;
+            font-size: 17px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            z-index: 200;
+        }
+        .tc-connect-btn:active { background: #e0e0e0; }
+    </style>
+</head>
+
+<body>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader">
+            <svg id="pegtopone" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <filter id="shine">
+                        <fegaussianblur stddeviation="3"></fegaussianblur>
+                    </filter>
+                    <mask id="mask">
+                        <path
+                            d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                            fill="white"></path>
+                    </mask>
+                    <radialgradient cx="50" cy="66" fx="50" fy="66" gradienttransform="translate(0 35) scale(1 0.5)"
+                        gradientunits="userSpaceOnUse" id="gradient-1" r="30">
+                        <stop offset="0%" stop-color="black" stop-opacity="0.3"></stop>
+                        <stop offset="50%" stop-color="black" stop-opacity="0.1"></stop>
+                        <stop offset="100%" stop-color="black" stop-opacity="0"></stop>
+                    </radialgradient>
+                    <radialgradient cx="55" cy="20" fx="55" fy="20" gradientunits="userSpaceOnUse" id="gradient-2"
+                        r="30">
+                        <stop offset="0%" stop-color="white" stop-opacity="0.3"></stop>
+                        <stop offset="50%" stop-color="white" stop-opacity="0.1"></stop>
+                        <stop offset="100%" stop-color="white" stop-opacity="0"></stop>
+                    </radialgradient>
+                    <radialgradient cx="85" cy="50" fx="85" fy="50" id="gradient-3" xlink:href="#gradient-2">
+                    </radialgradient>
+                    <radialgradient cx="50" cy="58" fx="50" fy="58" gradienttransform="translate(0 47) scale(1 0.2)"
+                        id="gradient-4" r="60" xlink:href="#gradient-3"></radialgradient>
+                    <lineargradient gradientunits="userSpaceOnUse" id="gradient-5" x1="50" x2="50" y1="90" y2="10">
+                        <stop offset="0%" stop-color="black" stop-opacity="0.2"></stop>
+                        <stop offset="40%" stop-color="black" stop-opacity="0"></stop>
+                    </lineargradient>
+                </defs>
+                <g>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="currentColor"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-1)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="none" filter="url(#shine)" mask="url(#mask)" opacity="0.3" stroke="white"
+                        stroke-width="3"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-2)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-3)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-4)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-5)"></path>
+                </g>
+            </svg>
+            <svg id="pegtoptwo" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <filter id="shine2">
+                        <fegaussianblur stddeviation="3"></fegaussianblur>
+                    </filter>
+                    <mask id="mask2">
+                        <path
+                            d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                            fill="white"></path>
+                    </mask>
+                </defs>
+                <g>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="currentColor"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-1)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="none" filter="url(#shine2)" mask="url(#mask2)" opacity="0.3" stroke="white"
+                        stroke-width="3"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-2)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-3)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-4)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-5)"></path>
+                </g>
+            </svg>
+            <svg id="pegtopthree" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <filter id="shine3">
+                        <fegaussianblur stddeviation="3"></fegaussianblur>
+                    </filter>
+                    <mask id="mask3">
+                        <path
+                            d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                            fill="white"></path>
+                    </mask>
+                </defs>
+                <g>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="currentColor"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-1)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="none" filter="url(#shine3)" mask="url(#mask3)" opacity="0.3" stroke="white"
+                        stroke-width="3"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-2)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-3)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-4)"></path>
+                    <path
+                        d="M63,37c-6.7-4-4-27-13-27s-6.3,23-13,27-27,4-27,13,20.3,9,27,13,4,27,13,27,6.3-23,13-27,27-4,27-13-20.3-9-27-13Z"
+                        fill="url(#gradient-5)"></path>
+                </g>
+            </svg>
+        </div>
+    </div>
+    <div id="app">
+        <header class="top-header">
+            <div class="balance-card stars-balance">
+                <div class="star-icon" id="headerStarsIconContainer"></div>
+                <span class="balance-amount" id="starsBalance">0 Stars</span>
+                <button aria-label="Пополнить Stars" class="add-balance-btn" id="addStarsBtn">
+                    <svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="balance-card">
+                <svg class="ton-icon" fill="currentColor" height="18" viewbox="0 0 13 14" width="18"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.0758 0.5H1.94269C0.460088 0.5 -0.471834 2.10705 0.248288 3.41806L5.24678 12.0877C5.58566 12.6374 6.3905 12.6374 6.72938 12.0877L11.7279 3.41806C12.4904 2.10705 11.5584 0.5 10.0758 0.5ZM5.28914 9.46564L4.18778 7.3511L1.56145 2.65683C1.39201 2.36079 1.60381 1.98018 1.98505 1.98018H5.28914V9.46564ZM10.4571 2.65683L7.83075 7.3511L6.72938 9.46564V1.98018H10.0335C10.4147 1.98018 10.6265 2.36079 10.4571 2.65683Z">
+                    </path>
+                </svg>
+                <span class="balance-amount" id="balanceAmount">0 TON</span>
+                <button aria-label="Пополнить TON" class="add-balance-btn" id="addBalanceBtn">
+                    <svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+        <div class="view-container" id="view-market">
+            <div class="banners-carousel">
+                <div class="banners-wrapper" id="bannersWrapper">
+                    <div class="banner-item">
+                        <img alt="Banner 1" class="banner-image"
+                            src="https://portal-market.com/assets/Banner5-Cdoq1ceH.webp" />
+                    </div>
+                    <div class="banner-item">
+                        <img alt="Banner 2" class="banner-image"
+                            src="https://portal-market.com/assets/Banner4-C3Z2BW0u.webp" />
+                    </div>
+                </div>
+            </div>
+            <div class="filters-section">
+                <div class="filters-tabs">
+                    <button class="filter-tab active" data-filter="all">Все подарки</button>
+                    <button class="filter-tab" data-filter="bundles">Бандлы</button>
+                </div>
+                <div class="filters-row">
+                    <button class="filter-btn collection-btn" data-filter-type="collection">
+                        <span class="collection-btn-text">Коллекция: Все</span>
+                        <svg class="collection-btn-arrow" fill="none" height="12" viewbox="0 0 12 12" width="12"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="1.5"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="nft-cards-grid" id="nftCardsGrid"></div>
+            <div class="bundles-grid hidden" id="bundlesGrid"></div>
+        </div>
+        <div class="view-container hidden" id="view-my-gifts">
+            <div class="my-gifts-tabs">
+                <button class="my-gifts-tab active" data-gifts-tab="gifts">Гифты</button>
+                <button class="my-gifts-tab" data-gifts-tab="offers">Офферы</button>
+                <button class="my-gifts-tab" data-gifts-tab="history">История</button>
+            </div>
+            <div class="my-gifts-status-bar">
+                <button class="my-gifts-status-btn active" data-status="unlisted">
+                    <span class="my-gifts-status-text">Гифты</span>
+                    <span class="my-gifts-status-count" id="unlistedCount">0</span>
+                </button>
+                <button class="my-gifts-status-btn" data-status="listed">
+                    <span class="my-gifts-status-text">Сделки</span>
+                    <span class="my-gifts-status-count" id="listedCount">0</span>
+                </button>
+            </div>
+            <div class="my-gifts-actions">
+                <button aria-label="Добавить" class="my-gifts-action-btn" id="addGiftBtn">
+                    <i class="ri-add-line"></i>
+                    <span class="my-gifts-action-label">Добавить</span>
+                </button>
+                <button aria-label="Вывод" class="my-gifts-action-btn" id="withdrawGiftBtn">
+                    <i class="ri-upload-2-line"></i>
+                    <span class="my-gifts-action-label">Вывод</span>
+                </button>
+                <button aria-label="Продать" class="my-gifts-action-btn" id="sellGiftBtn">
+                    <i class="ri-shopping-cart-line"></i>
+                    <span class="my-gifts-action-label">Продать</span>
+                </button>
+                <button aria-label="Отправить" class="my-gifts-action-btn" id="sendGiftBtn">
+                    <i class="ri-gift-line"></i>
+                    <span class="my-gifts-action-label">Отправить</span>
+                </button>
+            </div>
+            <div class="my-gifts-content" id="myGiftsContent">
+                <div class="section-placeholder">
+                    <div class="section-placeholder-animation" id="myGiftsPlaceholderAnimation"></div>
+                    <h2 class="section-placeholder-title">Мои подарки</h2>
+                    <p class="section-placeholder-subtitle">Здесь будут ваши купленные или
+                        полученные подарки.</p>
+                </div>
+            </div>
+        </div>
+        <div class="view-container hidden seasons-view" id="view-seasons">
+            <div class="seasons-header">
+                <div class="seasons-bg-particles">
+                    <div class="season-star star-1"></div>
+                    <div class="season-star star-2"></div>
+                    <div class="season-star star-3"></div>
+                    <div class="season-star star-4"></div>
+                    <div class="season-star star-5"></div>
+                    <div class="season-star star-6"></div>
+                    <div class="season-star star-7"></div>
+                    <div class="season-star star-8"></div>
+                    <div class="season-star star-9"></div>
+                    <div class="season-star star-10"></div>
+                    <div class="season-star star-11"></div>
+                    <div class="season-star star-12"></div>
+                    <div class="season-star star-13"></div>
+                    <div class="season-star star-14"></div>
+                </div>
+                <div class="seasons-rocket-container" id="seasonsRocketContainer">
+                </div>
+                <h1 class="seasons-title">Сезон #2</h1>
+                <p class="seasons-subtitle">Зарабатывайте очки и поднимайтесь
+                    в<br />таблице лидеров</p>
+            </div>
+            <div class="seasons-content">
+                <div class="seasons-card-wrapper">
+                    <div class="seasons-tabs">
+                        <button class="seasons-tab active">Глобальный</button>
+                        <button class="seasons-tab">Сезоны 1</button>
+                        <button class="seasons-tab">Сезоны 2</button>
+                    </div>
+                    <div class="seasons-main-stat">
+                        <div class="seasons-stat-label">
+                            Заработал этот период
+                            <i class="ri-information-fill info-icon"></i>
+                        </div>
+                        <div class="seasons-stat-value-row">
+                            <span class="seasons-stat-value">0</span>
+                            <div class="star-icon-wrapper-large">
+                                <div class="seasons-star-lottie seasons-star-lg"></div>
+                            </div>
+                            <svg class="seasons-chevron" fill="none" height="24" viewbox="0 0 24 24" width="24">
+                                <path d="M9 18L15 12L9 6" stroke="rgba(255,255,255,0.5)" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="seasons-stats-list">
+                        <div class="seasons-stats-row">
+                            <span class="seasons-stats-label">Покупка</span>
+                            <div class="seasons-stats-right">
+                                <span class="val">0</span>
+                                <i class="ri-gift-fill icon-gift"></i>
+                                <span class="divider">/</span>
+                                <span class="val">0</span>
+                                <div class="seasons-star-lottie seasons-star-sm"></div>
+                            </div>
+                        </div>
+                        <div class="seasons-stats-row">
+                            <span class="seasons-stats-label">Продажи</span>
+                            <div class="seasons-stats-right">
+                                <span class="val">0</span>
+                                <i class="ri-gift-fill icon-gift"></i>
+                                <span class="divider">/</span>
+                                <span class="val">0</span>
+                                <div class="seasons-star-lottie seasons-star-sm"></div>
+                            </div>
+                        </div>
+                        <div class="seasons-stats-row">
+                            <span class="seasons-stats-label">Сделки рефералов</span>
+                            <div class="seasons-stats-right">
+                                <span class="val">0</span>
+                                <i class="ri-user-3-fill icon-user"></i>
+                                <span class="divider">/</span>
+                                <span class="val">0</span>
+                                <div class="seasons-star-lottie seasons-star-sm"></div>
+                            </div>
+                        </div>
+                        <div class="seasons-stats-row">
+                            <span class="seasons-stats-label">Задачи</span>
+                            <div class="seasons-stats-right">
+                                <span class="val">0</span>
+                                <i class="ri-checkbox-circle-fill icon-check"></i>
+                                <span class="divider">/</span>
+                                <span class="val">0</span>
+                                <div class="seasons-star-lottie seasons-star-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="seasons-tasks-section">
+                <div class="seasons-section-header">
+                    <h2 class="seasons-section-title">Задачи</h2>
+                    <span class="seasons-section-subtitle">Рейтинг <i class="ri-information-fill"></i></span>
+                </div>
+                <div class="seasons-tasks-card">
+                    <div class="seasons-tasks-group">
+                        <h3 class="seasons-group-title">Один раз</h3>
+                        <div class="seasons-task-item">
+                            <div class="seasons-task-icon task-icon-telegram">
+                                <i class="ri-telegram-fill"></i>
+                            </div>
+                            <div class="seasons-task-info">
+                                <div class="seasons-task-reward">200 <div
+                                        class="seasons-star-lottie seasons-star-inline"></div>
+                                </div>
+                            </div>
+                            <button class="seasons-task-btn">Получить</button>
+                        </div>
+                        <div class="seasons-task-item">
+                            <div class="seasons-task-icon task-icon-purple">
+                                <i class="ri-user-add-fill"></i>
+                            </div>
+                            <div class="seasons-task-info">
+                                <div class="seasons-task-name">Пригласите друга</div>
+                                <div class="seasons-task-reward">250 <div
+                                        class="seasons-star-lottie seasons-star-inline"></div>
+                                </div>
+                            </div>
+                            <button class="seasons-task-btn">Получить</button>
+                        </div>
+                    </div>
+                    <div class="seasons-tasks-group">
+                        <div class="seasons-group-header">
+                            <h3 class="seasons-group-title">Ежедневно</h3>
+                            <span class="seasons-timer">04:21:02</span>
+                        </div>
+                        <div class="seasons-task-item">
+                            <div class="seasons-task-icon task-icon-pink">
+                                <i class="ri-gift-2-fill"></i>
+                            </div>
+                            <div class="seasons-task-info">
+                                <div class="seasons-task-name">Добавьте подарок</div>
+                                <div class="seasons-task-reward">100 <div
+                                        class="seasons-star-lottie seasons-star-inline"></div>
+                                </div>
+                            </div>
+                            <button class="seasons-task-btn">Получить</button>
+                        </div>
+                        <div class="seasons-task-item">
+                            <div class="seasons-task-icon task-icon-blue">
+                                <i class="ri-shopping-cart-fill"></i>
+                            </div>
+                            <div class="seasons-task-info">
+                                <div class="seasons-task-name">Продайте подарок</div>
+                                <div class="seasons-task-reward">200 <div
+                                        class="seasons-star-lottie seasons-star-inline"></div>
+                                </div>
+                            </div>
+                            <button class="seasons-task-btn">Получить</button>
+                        </div>
+                        <div class="seasons-task-item">
+                            <div class="seasons-task-icon task-icon-yellow">
+                                <i class="ri-arrow-up-circle-fill"></i>
+                            </div>
+                            <div class="seasons-task-info">
+                                <div class="seasons-task-name">Осуществите сделку, используя
+                                    оффер</div>
+                                <div class="seasons-task-reward">200 <div
+                                        class="seasons-star-lottie seasons-star-inline"></div>
+                                </div>
+                            </div>
+                            <button class="seasons-task-btn">Получить</button>
+                        </div>
+                        <div class="seasons-task-item">
+                            <div class="seasons-task-icon task-icon-green">
+                                <i class="ri-download-2-fill"></i>
+                            </div>
+                            <div class="seasons-task-info">
+                                <div class="seasons-task-name">Купите подарок</div>
+                                <div class="seasons-task-reward">100 <div
+                                        class="seasons-star-lottie seasons-star-inline"></div>
+                                </div>
+                            </div>
+                            <button class="seasons-task-btn">Получить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-container hidden" id="view-profile">
+            <div class="profile-hero">
+                <div aria-label="Аватар" class="profile-avatar" id="profileAvatar"></div>
+                <div class="profile-name" id="profileName">Пользователь</div>
+                <div class="profile-divider"></div>
+                <div class="profile-stats" id="profileStats">
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">
+                            <span id="profileVolumeValue">0</span>
+                            <svg class="profile-ton-icon" fill="currentColor" height="16" viewbox="0 0 13 14" width="16"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10.0758 0.5H1.94269C0.460088 0.5 -0.471834 2.10705 0.248288 3.41806L5.24678 12.0877C5.58566 12.6374 6.3905 12.6374 6.72938 12.0877L11.7279 3.41806C12.4904 2.10705 11.5584 0.5 10.0758 0.5ZM5.28914 9.46564L4.18778 7.3511L1.56145 2.65683C1.39201 2.36079 1.60381 1.98018 1.98505 1.98018H5.28914V9.46564ZM10.4571 2.65683L7.83075 7.3511L6.72938 9.46564V1.98018H10.0335C10.4147 1.98018 10.6265 2.36079 10.4571 2.65683Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="profile-stat-label">Объём</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">
+                            <span id="profileBoughtValue">0</span>
+                            <i class="ri-gift-fill profile-stat-icon"></i>
+                        </div>
+                        <div class="profile-stat-label">Куплено</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">
+                            <span id="profileSoldValue">0</span>
+                            <i class="ri-gift-fill profile-stat-icon"></i>
+                        </div>
+                        <div class="profile-stat-label">Продано</div>
+                    </div>
+                </div>
+                <button class="profile-register-btn" id="profileRegisterBtn">Подключить кошелёк</button>
+                <button class="profile-register-btn" id="profileHistoryBtn">История транзакций</button>
+                <div class="referral-banner">
+                    <div class="referral-banner-left">
+                        <div aria-hidden="true" class="referral-banner-icon">
+                            <i class="ri-rocket-2-fill"></i>
+                        </div>
+                        <div class="referral-banner-text">
+                            <div class="referral-banner-title">Приглашайте друзей и
+                                зарабатывайте TON</div>
+                            <div class="referral-banner-subtitle">От 20% до 50% в TON и +10% очков
+                                сезона с покупок рефералов</div>
+                        </div>
+                    </div>
+                    <div class="referral-banner-content">
+                        <div class="referral-item">
+                            <i aria-hidden="true" class="ri-shield-check-line referral-item-icon"></i>
+                            <div class="referral-item-text">
+                                <div class="referral-item-title">Реферальные комиссии</div>
+                                <div class="referral-item-subtitle">Зарабатывайте от 20% до 50% в TON
+                                    от их покупок</div>
+                            </div>
+                        </div>
+                        <div class="referral-divider"></div>
+                        <div class="referral-item">
+                            <i aria-hidden="true" class="ri-star-fill referral-item-icon"></i>
+                            <div class="referral-item-text">
+                                <div class="referral-item-title">10% очков сезона</div>
+                                <div class="referral-item-subtitle">Из очков, заработанных
+                                    вашими рефералами</div>
+                            </div>
+                        </div>
+                        <div class="referral-divider"></div>
+                        <div class="referral-item">
+                            <i aria-hidden="true" class="ri-money-dollar-circle-line referral-item-icon"></i>
+                            <div class="referral-item-text">
+                                <div class="referral-item-title">Кэшбэк — зарабатывайте с
+                                    покупок</div>
+                                <div class="referral-item-subtitle">Растёт вместе с объёмом
+                                    ваших покупок</div>
+                            </div>
+                        </div>
+                        <button aria-label="Пригласить друзей" class="referral-cta-btn"
+                            id="referralInviteBtn">Пригласить друзей</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-container deposit-view hidden" id="view-registration">
+            <div class="tc-page">
+                <button class="tc-back-btn" id="tcBackBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <img class="tc-card-img" src="data:image/png;base64,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" alt="Add gift card"/>
+
+                <div class="tc-steps">
+                    <div class="tc-step">
+                        <div class="tc-step-icon tc-step-icon-blue">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="tc-step-text">
+                            <div class="tc-step-title">Перейдите к боту по кнопке ниже</div>
+                            <div class="tc-step-desc">Передавайте подарок <span class="tc-step-link">@otc_helper</span></div>
+                        </div>
+                    </div>
+                    <div class="tc-step">
+                        <div class="tc-step-icon tc-step-icon-purple">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 12V22H4V12M22 7H2V12H22V7ZM12 22V7M12 7H7.5C6.12 7 5 5.88 5 4.5S6.12 2 7.5 2C11 2 12 7 12 7ZM12 7H16.5C17.88 7 19 5.88 19 4.5S17.88 2 16.5 2C13 2 12 7 12 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="tc-step-text">
+                            <div class="tc-step-title">Передайте подарок @otc_helper</div>
+                            <div class="tc-step-desc">Количество подарков не ограничено</div>
+                        </div>
+                    </div>
+                    <div class="tc-step">
+                        <div class="tc-step-icon tc-step-icon-green">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="tc-step-text">
+                            <div class="tc-step-title">Подарки появятся в инвентаре</div>
+                            <div class="tc-step-desc">Обработка занимает не более 2 минут</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="tc-connect-btn" id="tcConnectBtn">Добавить подарок</button>
+            </div>
+        </div>
+        <div class="view-container deposit-view hidden" id="view-deposit-ton">
+            <div class="deposit-page">
+                <div class="deposit-banner deposit-banner-ton">
+                    <div class="deposit-banner-bg">
+                        <div class="deposit-banner-circle deposit-banner-circle-1"></div>
+                        <div class="deposit-banner-circle deposit-banner-circle-2"></div>
+                        <div class="deposit-decor-icon decor-1">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-2">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-3">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-4">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-5">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="deposit-banner-content">
+                        <div class="deposit-banner-icon">
+                            <svg fill="currentColor" height="28" viewbox="0 0 13 14" width="28"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10.0758 0.5H1.94269C0.460088 0.5 -0.471834 2.10705 0.248288 3.41806L5.24678 12.0877C5.58566 12.6374 6.3905 12.6374 6.72938 12.0877L11.7279 3.41806C12.4904 2.10705 11.5584 0.5 10.0758 0.5ZM5.28914 9.46564L4.18778 7.3511L1.56145 2.65683C1.39201 2.36079 1.60381 1.98018 1.98505 1.98018H5.28914V9.46564ZM10.4571 2.65683L7.83075 7.3511L6.72938 9.46564V1.98018H10.0335C10.4147 1.98018 10.6265 2.36079 10.4571 2.65683Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-banner-label">Баланс кошелька</div>
+                        <div class="deposit-banner-amount" id="depositTonAmount">0 TON</div>
+                        <div class="deposit-banner-buttons">
+                            <button class="deposit-action-btn deposit-action-primary" id="depositTonBtn">
+                                <span>Пополнить</span>
+                                <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                                    <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-linecap="round"
+                                        stroke-width="2"></path>
+                                </svg>
+                            </button>
+                            <button class="deposit-action-btn deposit-action-secondary" id="withdrawTonBtn">
+                                <span>Вывод</span>
+                                <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                                    <path d="M8 13V3M5 6L8 3L11 6" stroke="currentColor" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="deposit-history-header">
+                    <h3 class="deposit-history-title">История</h3>
+                    <button class="deposit-filter-btn">
+                        <span>Фильтр</span>
+                        <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                            <path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" stroke-linecap="round"
+                                stroke-width="1.5"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="deposit-history-list" id="tonHistoryList">
+                    <div class="deposit-history-empty">
+                        <i class="ri-history-line"></i>
+                        <p>История транзакций</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-container deposit-view hidden" id="view-deposit-stars">
+            <div class="deposit-page">
+                <div class="deposit-banner deposit-banner-stars">
+                    <div class="deposit-banner-bg">
+                        <div class="deposit-banner-circle deposit-banner-circle-1"></div>
+                        <div class="deposit-banner-circle deposit-banner-circle-2"></div>
+                        <div class="deposit-decor-icon decor-1">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-2">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-3">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-4">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="deposit-decor-icon decor-5">
+                            <svg fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="deposit-banner-content">
+                        <div class="deposit-banner-icon" id="starsIconContainer">
+                        </div>
+                        <div class="deposit-banner-label">Баланс Stars</div>
+                        <div class="deposit-banner-amount" id="depositStarsAmount">0 Stars</div>
+                        <div class="deposit-stars-buttons-wrapper">
+                            <div class="deposit-banner-buttons">
+                                <button class="deposit-action-btn deposit-action-primary" id="depositStarsBtn">
+                                    <span>Пополнить</span>
+                                    <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                                        <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-linecap="round"
+                                            stroke-width="2"></path>
+                                    </svg>
+                                </button>
+                                <button class="deposit-action-btn deposit-action-secondary" id="withdrawStarsBtn">
+                                    <span>Вывести</span>
+                                    <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                                        <path d="M8 13V3M5 6L8 3L11 6" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <button class="deposit-action-btn deposit-action-secondary" id="exchangeStarsBtn">
+                                <span>Обменять</span>
+                                <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                                    <path d="M8 13V3M5 6L8 3L11 6" stroke="currentColor" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="deposit-history-header">
+                    <h3 class="deposit-history-title">История</h3>
+                    <button class="deposit-filter-btn">
+                        <span>Фильтр</span>
+                        <svg fill="none" height="14" viewbox="0 0 16 16" width="14">
+                            <path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" stroke-linecap="round"
+                                stroke-width="1.5"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="deposit-history-list" id="starsHistoryList">
+                </div>
+            </div>
+        </div>
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+        <div class="drawer" id="productDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть карточку" class="drawer-close-btn" id="drawerCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-deal-header hidden" id="drawerDealHeader">
+                <h2 class="drawer-deal-title" id="drawerDealTitle">Сделка #0000</h2>
+            </div>
+            <div class="drawer-body">
+                <div class="drawer-image-wrapper">
+                    <div class="drawer-image-bg" id="drawerLottieContainer">
+                        <img alt="Изображение подарка" class="drawer-image" id="drawerImage" src="" />
+                    </div>
+                </div>
+                <h2 class="drawer-title" id="drawerTitle">Gift Name</h2>
+                <div class="drawer-subtitle" id="drawerSubtitle">#12345</div>
+            </div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary">
+                    <span>Сделать оффер</span>
+                </button>
+                <button class="drawer-btn-primary" id="drawerBuyBtn">
+                    <span>Купить подарок</span>
+                    <span class="btn-subtitle" id="drawerBuyPrice">0 TON</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer bundle-drawer" id="bundleDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть бандл" class="drawer-close-btn" id="bundleCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row drawer-header-block">
+                <h2 class="drawer-title-left" id="bundleTitle">Бандл • ID 37297</h2>
+                <p class="drawer-subtitle-left drawer-subtitle-muted" id="bundleSubtitle">Подарков: 7</p>
+            </div>
+            <div class="bundle-list" id="bundleItemsList">
+            </div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary" id="bundleCancelBtn">
+                    <span>Закрыть</span>
+                </button>
+                <button class="drawer-btn-primary" id="bundleBuyBtn">
+                    <span>Купить бандл</span>
+                    <span class="btn-subtitle" id="bundleBuyPrice">0 TON</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="confirmDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть подтверждение" class="drawer-close-btn"
+                id="confirmCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row">
+                <h2 class="drawer-title-left">Купить подарок</h2>
+            </div>
+            <p class="drawer-desc-left">Вы уверены, что хотите купить этот подарок?
+            </p>
+            <div class="confirm-card">
+                <div class="confirm-card-left">
+                    <img alt="Изображение подарка" class="confirm-card-img" id="confirmImage"
+                        src="" />
+                    <div class="confirm-card-info">
+                        <div class="confirm-card-name" id="confirmName">Name</div>
+                        <div class="confirm-card-id" id="confirmId">#000</div>
+                    </div>
+                </div>
+                <div class="confirm-card-right">
+                    <div class="confirm-price-block">
+                        <div class="confirm-price-val" id="confirmPriceRight">0 TON</div>
+                        <div class="confirm-price-label">Цена</div>
+                    </div>
+                </div>
+            </div>
+            <div class="confirm-stats">
+                <div class="confirm-stat-row">
+                    <span>Доступный баланс</span>
+                    <div class="confirm-stat-val">
+                        <span id="confirmBalance">0</span> TON
+                    </div>
+                </div>
+            </div>
+            <div class="confirm-status-text" id="confirmStatusText">Недостаточный баланс</div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary" id="confirmCancelBtn">
+                    <span>Закрыть</span>
+                </button>
+                <button class="drawer-btn-primary" id="confirmBuyBtnFinal">
+                    <span>Купить подарок</span>
+                    <span class="btn-subtitle" id="confirmBuyBtnPrice">0 TON</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="offerDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть оффер" class="drawer-close-btn" id="offerCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row">
+                <h2 class="drawer-title-left">Ваше предложение</h2>
+            </div>
+            <div class="confirm-card">
+                <div class="confirm-card-left">
+                    <img alt="Изображение подарка" class="confirm-card-img" id="offerImage" src="" />
+                    <div class="confirm-card-info">
+                        <div class="confirm-card-name" id="offerName">Name</div>
+                        <div class="confirm-card-id" id="offerId">#000</div>
+                    </div>
+                </div>
+                <div class="confirm-card-right">
+                    <div class="confirm-price-block">
+                        <div class="confirm-price-val" id="offerMinPrice">0 TON</div>
+                        <div class="confirm-price-label">Мин. цена</div>
+                    </div>
+                    <div class="confirm-price-block">
+                        <div class="confirm-price-val" id="offerPriceRight">0 TON</div>
+                        <div class="confirm-price-label">Цена</div>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-expiration-group">
+                <div class="offer-expiration-label">Окончание оффера</div>
+                <div class="offer-toggles">
+                    <button class="offer-toggle active">7 дней</button>
+                    <button class="offer-toggle">Бессрочно</button>
+                </div>
+            </div>
+            <div class="confirm-stats">
+                <div class="confirm-stat-row">
+                    <span>Доступный баланс</span>
+                    <div class="confirm-stat-val">
+                        <span id="offerBalance">0</span> TON
+                    </div>
+                </div>
+            </div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-primary" id="sendOfferBtn">
+                    <span>Отправить оффер</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="collectionDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть коллекцию" class="drawer-close-btn" id="collectionCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row drawer-header-block">
+                <h2 class="drawer-title-left">Коллекция</h2>
+                <p class="drawer-subtitle-left drawer-subtitle-muted">Выберите
+                    одну
+                    или несколько</p>
+            </div>
+            <div class="collection-search-wrapper">
+                <i class="ri-search-line collection-search-icon"></i>
+                <input class="collection-search-input" id="collectionSearchInput"
+                    placeholder="Поиск по коллекции" type="text" />
+            </div>
+            <div class="collection-list" id="collectionList">
+            </div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary" id="collectionResetBtn">
+                    <span>Сбросить</span>
+                </button>
+                <button class="drawer-btn-primary" id="collectionShowBtn">
+                    <span>Показать</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="withdrawDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть вывод" class="drawer-close-btn" id="withdrawCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row drawer-header-block">
+                <h2 class="drawer-title-left">Вывод подарков</h2>
+            </div>
+            <div class="collection-list" id="withdrawList"></div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary" id="withdrawResetBtn">
+                    <span>Сбросить</span>
+                </button>
+                <button class="drawer-btn-primary" id="withdrawConfirmBtn">
+                    <span>Вывести</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="sellDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть продажу" class="drawer-close-btn" id="sellCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row drawer-header-block">
+                <h2 class="drawer-title-left">Продажа подарков</h2>
+            </div>
+            <div class="collection-list" id="sellList"></div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary" id="sellResetBtn">
+                    <span>Сбросить</span>
+                </button>
+                <button class="drawer-btn-primary" id="sellConfirmBtn">
+                    <span>Продать</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="exchangeStarsDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть обмен" class="drawer-close-btn" id="exchangeStarsCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row drawer-header-block">
+                <h2 class="drawer-title-left">Обмен Stars</h2>
+            </div>
+            <p class="drawer-subtitle-left drawer-subtitle-muted">Курс: 100 Stars = 1 TON</p>
+            <div class="exchange-info">
+                <div class="exchange-row">
+                    <div class="exchange-label">
+                        <svg aria-hidden="true" class="exchange-star-icon" fill="none" height="16" viewbox="0 0 24 24"
+                            width="16" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                                fill="#fbbf24"></path>
+                        </svg>
+                        <span>Доступно</span>
+                    </div>
+                    <span class="exchange-value" id="exchangeStarsAvailable">0 Stars</span>
+                </div>
+                <div class="exchange-row">
+                    <div class="exchange-label">
+                        <svg aria-hidden="true" class="exchange-ton-icon" fill="currentColor" height="16"
+                            viewbox="0 0 13 14" width="16" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.0758 0.5H1.94269C0.460088 0.5 -0.471834 2.10705 0.248288 3.41806L5.24678 12.0877C5.58566 12.6374 6.3905 12.6374 6.72938 12.0877L11.7279 3.41806C12.4904 2.10705 11.5584 0.5 10.0758 0.5ZM5.28914 9.46564L4.18778 7.3511L1.56145 2.65683C1.39201 2.36079 1.60381 1.98018 1.98505 1.98018H5.28914V9.46564ZM10.4571 2.65683L7.83075 7.3511L6.72938 9.46564V1.98018H10.0335C10.4147 1.98018 10.6265 2.36079 10.4571 2.65683Z">
+                            </path>
+                        </svg>
+                        <span>Получите</span>
+                    </div>
+                    <span class="exchange-value" id="exchangeTonReceive">0 TON</span>
+                </div>
+            </div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-secondary" id="exchangeStarsCancelBtn">
+                    <span>Отмена</span>
+                </button>
+                <button class="drawer-btn-primary" id="exchangeStarsConfirmBtn">
+                    <span>Обменять</span>
+                </button>
+            </div>
+        </div>
+        <div class="drawer drawer-elevated" id="cartDrawer">
+            <div class="drawer-handle"></div>
+            <button aria-label="Закрыть корзину" class="drawer-close-btn" id="cartCloseBtn">
+                <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                    <path d="M6 6L18 18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+            </button>
+            <div class="drawer-header-row">
+                <h2 class="drawer-title-left">Корзина</h2>
+            </div>
+            <div class="cart-items-list" id="cartItemsList">
+            </div>
+            <div class="drawer-actions">
+                <button class="drawer-btn-primary" id="cartPayBtn">
+                    <span>К оплате</span>
+                    <span class="btn-subtitle" id="cartPayAmount">0 TON</span>
+                </button>
+            </div>
+        </div>
+        <div class="popup-overlay" id="errorOverlay"></div>
+        <div class="popup-card" id="errorPopup">
+            <div class="popup-icon-wrapper">
+                <i class="ri-error-warning-fill popup-icon-alert"></i>
+            </div>
+            <h3 class="popup-title" id="errorTitle">Ошибка</h3>
+            <p class="popup-text" id="errorText">Для покупки нужно пройти авторизацию
+                на маркете</p>
+            <button class="popup-btn" id="errorCloseBtn">Закрыть</button>
+        </div>
+        <div class="cart-notification" id="cartNotification">
+            <div class="cart-notification-content">
+                <svg class="cart-notification-icon" fill="none" height="20" viewbox="0 0 16 16" width="20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2L2 4.5V13C2 13.5523 2.44772 14 3 14H13C13.5523 14 14 13.5523 14 13V4.5L12 2H4Z"
+                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                    <path d="M2 4.5H14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5"></path>
+                    <path d="M11 8.5C11 9.60457 10.1046 10.5 9 10.5C7.89543 10.5 7 9.60457 7 8.5" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                </svg>
+                <div class="cart-notification-text">
+                    <div class="cart-notification-price" id="cartNotificationPrice">0 TON</div>
+                    <div class="cart-notification-count" id="cartNotificationCount">0 подарков</div>
+                </div>
+            </div>
+        </div>
+        <div class="withdraw-toast" id="withdrawToast">
+            <div class="withdraw-toast-content">
+                <span class="withdraw-toast-text" id="withdrawToastText">Подарки не выбраны</span>
+                <div class="withdraw-toast-progress">
+                    <div class="withdraw-toast-bar" id="withdrawToastBar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="notifications-container" id="notificationsContainer"></div>
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-view="market">
+                <i class="ri-shopping-bag-3-line nav-icon"></i>
+                <span class="nav-text">Маркет</span>
+            </button>
+            <button class="nav-btn" data-view="my-gifts">
+                <span class="material-icons nav-icon">card_giftcard</span>
+                <span class="nav-text">Мои подарки</span>
+                <span class="nav-badge hidden" id="myGiftsNavBadge">1</span>
+            </button>
+            <button class="nav-btn" data-view="seasons">
+                <i class="ri-star-line nav-icon"></i>
+                <span class="nav-text">Сезоны</span>
+            </button>
+            <button class="nav-btn" data-view="profile">
+                <i class="ri-user-3-line nav-icon"></i>
+                <span class="nav-text">Профиль</span>
+            </button>
+        </nav>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="script.js"></script>
+    <script src="gift-animations.js"></script>
+    <script defer="" src="nft-data.js"></script>
+    <script src="market.js"></script>
+    <script src="my-gifts.js"></script>
+    <script src="seasons.js"></script>
+    <script src="profile.js"></script>
+    <script src="deposit.js"></script>
+    <script src="cart.js"></script>
+    <script src="auth.js"></script>
+    <script src="snow.js"></script>
+</body>
+
+</html>
