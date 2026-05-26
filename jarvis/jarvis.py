@@ -10,6 +10,15 @@ import socket
 import signal
 from pathlib import Path
 
+# Load .env file if it exists
+_env_path = Path(__file__).parent / ".env"
+if _env_path.exists():
+    for line in _env_path.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, _, value = line.partition("=")
+            os.environ.setdefault(key.strip(), value.strip())
+
 import psutil
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
