@@ -324,25 +324,103 @@ def show_help() -> str:
 # ---------------------------------------------------------------------------
 
 COMMAND_MAP = {
-    ("помощь", "help", "команды", "commands"): lambda _: show_help(),
-    ("системная информация", "system info", "sys info", "инфо", "о системе", "sysinfo"): lambda _: get_system_info(),
-    ("процессы", "processes", "top", "htop", "задачи"): lambda _: list_processes(),
-    ("сеть", "network", "net", "ip", "интернет"): lambda _: get_network_info(),
-    ("батарея", "battery", "заряд"): lambda _: get_battery_info(),
-    ("диски", "disks", "disk", "хранилище", "storage"): lambda _: disk_usage(),
-    ("время", "time", "дата", "date", "сейчас"): lambda _: get_datetime(),
-    ("очистить", "clear", "cls"): lambda _: _clear_history(),
+    ("помощь", "help", "команды", "commands", "что ты умеешь", "что умеешь"): lambda _: show_help(),
+    (
+        "системная информация", "system info", "sys info", "инфо", "о системе",
+        "sysinfo", "покажи систему", "информация о системе", "система",
+        "покажи информацию", "что за комп", "характеристики",
+    ): lambda _: get_system_info(),
+    (
+        "процессы", "processes", "top", "htop", "задачи",
+        "покажи процессы", "список процессов", "что запущено", "что работает",
+    ): lambda _: list_processes(),
+    (
+        "сеть", "network", "net", "ip", "интернет",
+        "покажи сеть", "сетевая информация", "покажи ip",
+    ): lambda _: get_network_info(),
+    ("батарея", "battery", "заряд", "покажи батарею"): lambda _: get_battery_info(),
+    (
+        "диски", "disks", "disk", "хранилище", "storage",
+        "покажи диски", "место на диске", "свободное место",
+    ): lambda _: disk_usage(),
+    (
+        "время", "time", "дата", "date", "сейчас",
+        "который час", "какое время", "какая дата", "покажи время",
+        "сколько времени", "какое сейчас время",
+    ): lambda _: get_datetime(),
+    ("очистить", "clear", "cls", "очисти", "очистить историю"): lambda _: _clear_history(),
 }
 
 PREFIX_COMMANDS = {
-    ("убить", "kill", "завершить"): lambda arg: kill_process(arg),
-    ("файлы", "ls", "dir", "папка", "директория"): lambda arg: list_directory(arg or "."),
-    ("читать", "read", "cat", "показать файл"): lambda arg: read_file(arg) if arg else "❌ Укажите путь к файлу",
-    ("найти", "find", "search", "поиск"): lambda arg: _parse_find(arg),
-    ("открой", "open", "запустить приложение", "открыть"): lambda arg: open_application(arg) if arg else "❌ Укажите приложение",
-    ("запусти", "run", "exec", "выполни", "команда", "cmd", "shell", "терминал"): lambda arg: run_shell_command(arg) if arg else "❌ Укажите команду",
-    ("записать", "write"): lambda arg: _parse_write(arg),
+    (
+        "убить", "kill", "завершить", "закрой", "закрыть",
+        "выключи", "останови", "заверши", "убей", "закрой приложение",
+        "закрой программу", "выруби",
+    ): lambda arg: kill_process(_clean_app_name(arg)),
+    (
+        "файлы", "ls", "dir", "папка", "директория",
+        "покажи файлы", "покажи папку", "содержимое",
+        "что в папке", "список файлов",
+    ): lambda arg: list_directory(arg or "."),
+    (
+        "читать", "read", "cat", "показать файл", "прочитай",
+        "открой файл", "покажи файл",
+    ): lambda arg: read_file(arg) if arg else "❌ Укажите путь к файлу",
+    ("найти", "find", "search", "поиск", "найди", "искать"): lambda arg: _parse_find(arg),
+    (
+        "открой", "open", "запустить приложение", "открыть",
+        "запусти приложение", "включи", "запуск", "стартуй", "стартани",
+        "открой программу", "открой сайт", "открой браузер",
+    ): lambda arg: open_application(_resolve_app(arg)) if arg else "❌ Укажите приложение",
+    (
+        "запусти", "run", "exec", "выполни", "команда",
+        "cmd", "shell", "терминал", "выполнить",
+    ): lambda arg: run_shell_command(arg) if arg else "❌ Укажите команду",
+    ("записать", "write", "запиши", "создай файл"): lambda arg: _parse_write(arg),
 }
+
+# Common app name aliases for voice recognition
+APP_ALIASES: dict[str, str] = {
+    "браузер": "start chrome" if platform.system() == "Windows" else "google-chrome",
+    "хром": "start chrome" if platform.system() == "Windows" else "google-chrome",
+    "chrome": "start chrome" if platform.system() == "Windows" else "google-chrome",
+    "гугл": "start chrome" if platform.system() == "Windows" else "google-chrome",
+    "firefox": "start firefox" if platform.system() == "Windows" else "firefox",
+    "фаерфокс": "start firefox" if platform.system() == "Windows" else "firefox",
+    "блокнот": "notepad" if platform.system() == "Windows" else "gedit",
+    "notepad": "notepad" if platform.system() == "Windows" else "gedit",
+    "калькулятор": "calc" if platform.system() == "Windows" else "gnome-calculator",
+    "calculator": "calc" if platform.system() == "Windows" else "gnome-calculator",
+    "проводник": "explorer" if platform.system() == "Windows" else "nautilus",
+    "explorer": "explorer" if platform.system() == "Windows" else "nautilus",
+    "файловый менеджер": "explorer" if platform.system() == "Windows" else "nautilus",
+    "терминал": "cmd" if platform.system() == "Windows" else "gnome-terminal",
+    "terminal": "cmd" if platform.system() == "Windows" else "gnome-terminal",
+    "телеграм": "start telegram" if platform.system() == "Windows" else "telegram-desktop",
+    "telegram": "start telegram" if platform.system() == "Windows" else "telegram-desktop",
+    "дискорд": "start discord" if platform.system() == "Windows" else "discord",
+    "discord": "start discord" if platform.system() == "Windows" else "discord",
+    "vscode": "code",
+    "код": "code",
+    "редактор": "code",
+}
+
+
+def _resolve_app(name: str) -> str:
+    if not name:
+        return name
+    lower = name.strip().lower()
+    return APP_ALIASES.get(lower, name)
+
+
+def _clean_app_name(name: str) -> str:
+    if not name:
+        return name
+    noise = ["открытый", "открытую", "открытое", "запущенный", "запущенную",
+             "программу", "приложение", "окно", "процесс", "пожалуйста", "плиз"]
+    words = name.split()
+    cleaned = [w for w in words if w.lower() not in noise]
+    return " ".join(cleaned) if cleaned else name
 
 
 def _clear_history() -> str:
@@ -380,6 +458,23 @@ def route_command(text: str) -> str | None:
             if lower.startswith(key + " ") or lower == key:
                 arg = text.strip()[len(key):].strip()
                 return handler(arg)
+
+    # Fuzzy: check if any keyword appears anywhere in the phrase
+    words = lower.split()
+    for keys, handler in PREFIX_COMMANDS.items():
+        for key in keys:
+            key_words = key.split()
+            if len(key_words) == 1 and key_words[0] in words:
+                idx = words.index(key_words[0])
+                arg = " ".join(words[idx + 1:])
+                if not arg and idx > 0:
+                    arg = " ".join(words[:idx])
+                return handler(arg)
+
+    for keys, handler in COMMAND_MAP.items():
+        for key in keys:
+            if key in lower:
+                return handler(text)
 
     return None
 
